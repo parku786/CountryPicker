@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
     private var binding: ActivityMainBinding? = null
     private var indexAdapter: IndexAdapter? = null
     private var dataAdapter: DataAdapter? = null
-    private var indexArrayList = arrayListOf( "A",
+    private var indexArrayList = arrayListOf(
+        "A",
         "B",
         "C",
         "D",
@@ -54,7 +55,8 @@ class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
         "W",
         "X",
         "Y",
-        "Z")
+        "Z"
+    )
     private var dataArrayList = listOf(
         "Afghanistan",
         "Albania",
@@ -269,7 +271,7 @@ class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
             override fun afterTextChanged(s: Editable?) {
                 if (binding!!.searchET.text.toString().isNotEmpty()) {
                     binding!!.indexRV.visibility = View.GONE
-                    serachQuery(binding!!.searchET.text.toString())
+                    searchQuery(binding!!.searchET.text.toString())
                 } else {
                     binding!!.errorTV.visibility = View.GONE
                     hideKeyboard()
@@ -304,7 +306,7 @@ class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
         })
     }
 
-    private fun serachQuery(data: String) {
+    private fun searchQuery(data: String) {
         sortedAppsList.clear()
         dataArrayList.forEach { list ->
 
@@ -317,19 +319,9 @@ class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
                 )
             }
         }
-        if (dataAdapter == null) {
-            dataAdapter =
-                DataAdapter(sortedAppsList)
-            binding!!.dataRV.adapter = dataAdapter
-        } else {
-            dataAdapter!!.notifyDataSetChanged()
-        }
 
-        if (sortedAppsList.size == 0) {
-            binding!!.errorTV.visibility = View.VISIBLE
-        } else {
-            binding!!.errorTV.visibility = View.GONE
-        }
+        dataAdapterUpdate()
+        binding!!.errorTV.visibility = if (sortedAppsList.size == 0) View.VISIBLE else View.GONE
     }
 
     private fun setDataAdapter() {
@@ -377,6 +369,10 @@ class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
                 }
             }
         }
+        dataAdapterUpdate()
+    }
+
+    private fun dataAdapterUpdate() {
         if (dataAdapter == null) {
             dataAdapter =
                 DataAdapter(sortedAppsList)
@@ -440,7 +436,7 @@ class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
         if (exit) {
             finishAffinity()
         } else {
-            Toast.makeText(this,getString(R.string.press_one_more_time),Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.press_one_more_time), Toast.LENGTH_LONG).show()
             exit = true
             Handler().postDelayed({ exit = false }, (2 * 1000).toLong())
         }
