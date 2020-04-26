@@ -18,7 +18,7 @@
             android:imeOptions="actionSearch"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

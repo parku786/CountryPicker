@@ -15,7 +15,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:drawablePadding="10dp"
-        android:text="Country Picker \n\n Submitted by : Parkash Singh"
+        android:text="@string/country_picker_n_n_submitted_by_parkash_singh"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

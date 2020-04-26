@@ -6,7 +6,5 @@
 .DS_Store
 /build
 /captures
-/sync-manager-android-retrofit-lib
-/image-picker-lib
 /gradlew
 /*.bat
