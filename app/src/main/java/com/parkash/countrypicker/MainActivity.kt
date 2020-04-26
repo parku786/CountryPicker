@@ -22,7 +22,7 @@ import com.parkash.countrypicker.model.DataClass
 import com.parkash.countrypicker.utils.HeaderItemDecoration
 
 
-class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
+class MainActivity : AppCompatActivity(), IndexAdapter.CallBack, View.OnClickListener {
 
     private var exit: Boolean = false
     private var latter: Char = 'A'
@@ -35,10 +35,11 @@ class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        indexArrayList.addAll(resources.getStringArray(R.array.alphabet))
-        dataArrayList.addAll(resources.getStringArray(R.array.countryName))
         this.overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding!!.closeIV.setOnClickListener(this)
+        indexArrayList.addAll(resources.getStringArray(R.array.alphabet))
+        dataArrayList.addAll(resources.getStringArray(R.array.countryName))
         binding!!.indexRV.layoutManager = LinearLayoutManager(this)
         binding!!.dataRV.layoutManager = LinearLayoutManager(this)
 
@@ -51,10 +52,7 @@ class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
                     binding!!.indexRV.visibility = View.GONE
                     searchQuery(binding!!.searchET.text.toString())
                 } else {
-                    binding!!.errorTV.visibility = View.GONE
-                    hideKeyboard()
-                    binding!!.indexRV.visibility = View.VISIBLE
-                    setDataAdapter()
+                    showOriginalView()
                 }
             }
 
@@ -218,5 +216,20 @@ class MainActivity : AppCompatActivity(), IndexAdapter.CallBack {
             exit = true
             Handler().postDelayed({ exit = false }, (2 * 1000).toLong())
         }
+    }
+
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+            R.id.closeIV -> {
+                binding!!.searchET.text!!.clear()
+            }
+        }
+    }
+
+    private fun showOriginalView() {
+        binding!!.errorTV.visibility = View.GONE
+        hideKeyboard()
+        binding!!.indexRV.visibility = View.VISIBLE
+        setDataAdapter()
     }
 }
